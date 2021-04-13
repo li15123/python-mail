@@ -28,8 +28,8 @@ def get_emailType(email):
     return serverName[email[1]]
 
 
-mail = "lizhenjun_1270@163.com"
-pwds = ['978208688Ju','ejfjucqqjucvbegd','97820688Jun']
+mail = "xxx@163.com"
+pwds = ['xx','xx','xx']
 #ejfjucqqjucvbegd
 serverName = get_emailType(mail)
 for pwd in pwds:
