@@ -1,10 +1,10 @@
-#教程https://blog.csdn.net/ITBigGod/article/details/103349626
 #coding=UTF-8
 import time
 from selenium import webdriver
 
 browser = webdriver.Chrome()   # 或填入chromedriver.exe的绝对路径
 normal_window = browser.get("https://mail.163.com/")
+#print browser.page_source  
 time.sleep(5)      # 加延迟，为了加载元素，避免太快出现异常
 
 # //*[@id="switchAccountLogin"]
