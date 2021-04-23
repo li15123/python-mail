@@ -4,7 +4,7 @@ from selenium import webdriver
 
 
 #输入验证码等待时间/秒
-wait_time = 20
+wait_time = 30
 
 
 def loginEmail163(user,password):
@@ -28,7 +28,7 @@ def loginEmail163(user,password):
     browser.find_element_by_name("password").clear()
     browser.find_element_by_name("password").send_keys(password)
     browser.find_element_by_css_selector("#dologin").click()  # 登录按钮   
-    time.sleep(3)  
+    time.sleep(10)  
 
     try:
        ferrorhead = browser.find_element_by_class_name("ferrorhead")
