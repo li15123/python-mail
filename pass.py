@@ -93,7 +93,7 @@ with open('./serverNameConfig.json','r')as severJson:
 #load email
 with open('./email.json','r')as emailJson:
     email_json = json.load(emailJson)    
-
 #red email pass
 for user in email_json:
+    print user
     brute_tencent(get_emailType(user),user, email_json[user])
