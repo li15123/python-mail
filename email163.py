@@ -3,12 +3,15 @@ import time
 from selenium import webdriver
 
 
-def quitBrowser(br):
-    #br.find_element_by_link_text('退出').click()
-    br.close()
-    br.quit()
+#输入验证码等待时间/秒
+wait_time = 20
+
 
 def loginEmail163(user,password):
+    global g_user
+    global g_password
+    g_user = user
+    g_password = password
     browser = webdriver.Chrome()   # 或填入chromedriver.exe的绝对路径
     normal_window = browser.get("https://mail.163.com/")
     #print browser.page_source  
@@ -24,24 +27,54 @@ def loginEmail163(user,password):
     browser.find_element_by_name("email").send_keys(user)
     browser.find_element_by_name("password").clear()
     browser.find_element_by_name("password").send_keys(password)
-    browser.find_element_by_css_selector("#dologin").click()  # 登录按钮
-    time.sleep(15)     
-    
+    browser.find_element_by_css_selector("#dologin").click()  # 登录按钮   
+    time.sleep(3)  
+
+    try:
+       ferrorhead = browser.find_element_by_class_name("ferrorhead")
+    except Exception as msg:
+        print ""
+    else:
+        if ferrorhead.text == "请先进行验证":
+            print "需要验证码"
+            time.sleep(wait_time)
+        elif ferrorhead.text =="帐号或密码错误":  
+            printFail()
+            return False
+    return verifLogin(browser)
+
+def quitBrowser(br):
+    #br.find_element_by_link_text('退出').click()
+    br.close()
+    br.quit()
+
+def verifLogin(browser):
+    global g_user
     browser.switch_to.default_content()
     try:
         spnUid = browser.find_element_by_id("spnUid")
     except Exception as msg:
-        print('\033[1;31m ************* 登录失败 ************* \033[0m')
-        print('\033[1;31m ************* %s %s ************* \033[0m' %(user,password))
+        printFail()
         quitBrowser(browser)
         return False
     else:
         name = spnUid.text
-        if name == user:
-            print('\033[1;32m ------------- 登录成功 ------------- \033[0m')
-            print('\033[1;32m ------------- %s %s ------------- \033[0m' %(user,password))
+        if name == g_user:
+            printSuccess()
             quitBrowser(browser)
             return True   
+
+def printFail():
+    global g_user,g_password
+    print('\033[1;31m ************* 登录失败 ************* \033[0m')
+    print('\033[1;31m ************* %s %s ************* \033[0m' %(g_user,g_password))
+
+
+def printSuccess():
+    global g_user,g_password
+    print('\033[1;32m ------------- 登录成功 ------------- \033[0m')
+    print('\033[1;32m ------------- %s %s ------------- \033[0m' %(g_user,g_password))
+
 def read_email(browser):
     # 读邮件
     # class="gWel-mailInfo-ico"

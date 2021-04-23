@@ -21,10 +21,12 @@ with open('./email.json','r')as emailJson:
     email_json = json.load(emailJson)    
 
 #print('This is a \033[1;35m %s \033[0m!' %user)
-
+print('\033[1;35m ++++++++++++++++++++++++++开始+++++++++++++++++++++++++++++++ \033[0m')
 for user in email_json:
     for password in email_json[user]:
         emailType = get_emailType(user)
         if emailType == "163":
             if loginEmail163(user, password) :
                 break
+print ""
+print('\033[1;35m ++++++++++++++++++++++++++结束+++++++++++++++++++++++++++++++ \033[0m')
