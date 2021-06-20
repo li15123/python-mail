@@ -18,3 +18,5 @@ browser.find_element_by_name("email").send_keys("xxxx@163.com")
 browser.find_element_by_name("password").clear()
 browser.find_element_by_name("password").send_keys("xxx")
 browser.find_element_by_css_selector("#dologin").click()  # 登录按钮
+
+#newbranch 修改%%%%
